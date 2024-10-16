@@ -6,7 +6,7 @@ import {
   IconContext,
   Package,
   Plus,
-  WarningOctagon,
+  WarningCircle,
   X,
 } from "@phosphor-icons/react";
 
@@ -30,11 +30,11 @@ const buttons: ButtonProps[] = [
         Produtos
       </>
     ),
-    style: "text-sky-600 bg-sky-950 border-sky-600",
+    style: "text-sky-500 bg-sky-950 border-sky-500",
   },
   {
     href: "/ocorrencias",
-    icon: WarningOctagon,
+    icon: WarningCircle,
     label: (
       <>
         Lista de
@@ -54,7 +54,7 @@ const buttons: ButtonProps[] = [
         Entrada
       </>
     ),
-    style: "text-green-600 bg-green-950 border-green-600",
+    style: "text-green-500 bg-green-950 border-green-500",
   },
   {
     href: "/registrar-saida",
@@ -74,12 +74,10 @@ const Button: React.FC<ButtonProps> = ({
   href,
   icon,
   label,
-  style = "text-zinc-600 bg-zinc-950 border-zinc-600",
+  style = "text-neutral-500 bg-neutral-900 border-neutral-500",
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  console.log(location.pathname);
 
   return (
     <button onClick={() => navigate(href)} className="flex items-center gap-2">
@@ -107,7 +105,7 @@ const Button: React.FC<ButtonProps> = ({
 
 const Navigation: React.FC = () => {
   return (
-    <header className="select-none bg-zinc-950 p-5 text-xs text-white">
+    <header className="p-5 text-xs text-white">
       <div className="flex flex-row items-center justify-between gap-8">
         <div className="flex h-14 shrink-0 items-center">
           <img src={Logo} alt="" className="h-full" />
