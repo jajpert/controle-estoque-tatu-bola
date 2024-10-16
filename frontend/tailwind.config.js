@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'sans': ['"Poppins"', ...defaultTheme.fontFamily.sans],
+        'mono': ['"Inconsolata"', ...defaultTheme.fontFamily.mono],
       },
       colors: {
         'background': '#101010',
