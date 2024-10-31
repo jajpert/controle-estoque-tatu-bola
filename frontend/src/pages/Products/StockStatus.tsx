@@ -1,62 +1,50 @@
-import React from "react";
-import {
-  Icon,
-  IconContext,
-  Smiley,
-  SmileyMeh,
-  SmileySad,
-} from "@phosphor-icons/react";
+import { twMerge } from "tailwind-merge";
+import { Icon, Smiley, SmileyMeh, SmileySad } from "@phosphor-icons/react";
 
-interface StockStatusProps {
-  status: "ideal" | "not-ideal" | "low";
-  show_tooltip?: boolean;
+type Status = "ideal" | "not_ideal" | "low";
+
+interface StatusProps {
+  icon: Icon;
+  label: string;
+  style: string;
 }
 
-const StockStatus: React.FC<StockStatusProps> = ({
-  status,
-  show_tooltip = false,
-}) => {
-  var badge: { icon: Icon; label: string; style: string };
+const statusProps: Record<Status, StatusProps> = {
+  ideal: {
+    icon: Smiley,
+    label: "Quantidade ideal",
+    style: "bg-green-950 text-green-500",
+  },
+  not_ideal: {
+    icon: SmileyMeh,
+    label: "Quantidade não ideal",
+    style: "bg-yellow-950 text-yellow-500",
+  },
+  low: {
+    icon: SmileySad,
+    label: "Quantidade baixa",
+    style: "bg-red-950 text-red-500",
+  },
+};
 
-  switch (status) {
-    case "ideal":
-      badge = {
-        icon: Smiley,
-        label: "Quantidade ideal",
-        style: "text-green-500 bg-green-950",
-      };
-      break;
-    case "not-ideal":
-      badge = {
-        icon: SmileyMeh,
-        label: "Quantidade não ideal",
-        style: "text-yellow-500 bg-yellow-950",
-      };
-      break;
-    case "low":
-      badge = {
-        icon: SmileySad,
-        label: "Quantidade baixa",
-        style: "text-red-500 bg-red-950",
-      };
-      break;
-  }
+interface StockStatusProps {
+  status: Status;
+  tooltip?: boolean;
+}
+
+function StockStatus({ status, tooltip = false }: StockStatusProps) {
+  const { icon: Icon, label, style } = statusProps[status];
 
   return (
     <span
-      className={`${badge.style} rounded-full p-0.5`}
-      title={show_tooltip ? badge.label : undefined}
+      className={twMerge("rounded-full p-0.5", style)}
+      title={tooltip ? label : undefined}
     >
-      <IconContext.Provider
-        value={{
-          size: 14,
-          weight: "bold",
-        }}
-      >
-        {React.createElement(badge.icon)}
-      </IconContext.Provider>
+      <Icon size={14} weight="bold" />
     </span>
   );
-};
+}
 
 export default StockStatus;
+
+export type { Status };

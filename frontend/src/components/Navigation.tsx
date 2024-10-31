@@ -1,109 +1,75 @@
-import React from "react";
-
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  Icon,
-  IconContext,
-  Package,
-  Plus,
-  WarningCircle,
-  X,
-} from "@phosphor-icons/react";
+import { twMerge } from "tailwind-merge";
+import { Icon, Package, Plus, WarningCircle, X } from "@phosphor-icons/react";
 
 import Logo from "../assets/logo.svg";
 
-interface ButtonProps {
-  href: string;
-  icon: Icon;
-  label: React.JSX.Element;
-  style: string;
-}
-
-const buttons: ButtonProps[] = [
+const buttons: NavigationButtonProps[] = [
   {
-    href: "/",
     icon: Package,
-    label: (
-      <>
-        Lista de
-        <br />
-        Produtos
-      </>
-    ),
+    label: "Lista de\nProdutos",
     style: "text-sky-500 bg-sky-950 border-sky-500",
+    href: "/",
   },
   {
-    href: "/ocorrencias",
     icon: WarningCircle,
-    label: (
-      <>
-        Lista de
-        <br />
-        Ocorrências
-      </>
-    ),
+    label: "Lista de\nOcorrências",
     style: "text-yellow-500 bg-yellow-950 border-yellow-500",
+    href: "/ocorrencias",
   },
   {
-    href: "/registrar-entrada",
     icon: Plus,
-    label: (
-      <>
-        Registrar
-        <br />
-        Entrada
-      </>
-    ),
+    label: "Registrar\nEntrada",
     style: "text-green-500 bg-green-950 border-green-500",
+    href: "/registrar-entrada",
   },
   {
-    href: "/registrar-saida",
     icon: X,
-    label: (
-      <>
-        Registrar
-        <br />
-        Saída
-      </>
-    ),
+    label: "Registrar\nSaída",
     style: "text-red-500 bg-red-950 border-red-500",
+    href: "/registrar-saida",
   },
 ];
 
-const Button: React.FC<ButtonProps> = ({
-  href,
-  icon,
+interface NavigationButtonProps {
+  icon: Icon;
+  label: string;
+  style: string;
+  href: string;
+}
+
+function NavigationButton({
+  icon: Icon,
   label,
-  style = "text-neutral-500 bg-neutral-900 border-neutral-500",
-}) => {
+  style,
+  href,
+}: NavigationButtonProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
     <button onClick={() => navigate(href)} className="flex items-center gap-2">
       <div
-        className={`${style} relative flex h-8 w-8 items-center justify-center rounded-md border-2`}
+        className={twMerge(
+          "relative flex h-8 w-8 items-center justify-center rounded-md border-2",
+          style,
+        )}
       >
-        <IconContext.Provider
-          value={{
-            size: 16,
-            weight: "bold",
-          }}
-        >
-          {React.createElement(icon)}
-        </IconContext.Provider>
+        <Icon size={16} weight="bold" />
         <span
           className={`absolute -bottom-3 h-1 w-1 rounded-full transition-colors ${
             location.pathname === href ? "bg-white" : "bg-transparent"
           }`}
-        ></span>
+        />
       </div>
-      <span className="text-left font-medium leading-tight">{label}</span>
+      <span className="whitespace-pre-line text-left font-medium leading-tight">
+        {label}
+      </span>
     </button>
   );
-};
+}
 
-const Navigation: React.FC = () => {
+function Navigation() {
   return (
     <header className="p-5 text-xs text-white">
       <div className="flex flex-row items-center justify-between gap-8">
@@ -111,21 +77,19 @@ const Navigation: React.FC = () => {
           <img src={Logo} alt="" className="h-full" />
         </div>
         <div className="grid shrink-0 grid-cols-4 gap-8">
-          {buttons.map((button, index) => {
-            return (
-              <Button
-                key={index}
-                href={button.href}
-                icon={button.icon}
-                label={button.label}
-                style={button.style}
-              />
-            );
-          })}
+          {buttons.map((button, index) => (
+            <NavigationButton
+              key={index}
+              icon={button.icon}
+              label={button.label}
+              style={button.style}
+              href={button.href}
+            />
+          ))}
         </div>
       </div>
     </header>
   );
-};
+}
 
 export default Navigation;
