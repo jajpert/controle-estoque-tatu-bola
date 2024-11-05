@@ -1,7 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+
+const dbPath = path.join(__dirname, '../db/estoque_tatu_bola.db');
 
 // Conectar ao banco de dados (ou criar se não existir)
-let db = new sqlite3.Database('estoque_tatu_bola.db', (err) => {
+let db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error(err.message);
     }
