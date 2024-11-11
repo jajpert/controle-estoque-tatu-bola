@@ -15,8 +15,19 @@ let db = new sqlite3.Database(dbPath, (err) => {
 db.run(`
     CREATE TABLE IF NOT EXISTS Produto (
         id_produto INTEGER PRIMARY KEY AUTOINCREMENT,
-        nm_produto TEXT NOT NULL,
-        unid_medida TEXT NOT NULL
+        nm_produto TEXT NOT NULL
+    )
+`, (err) => {
+    if (err) {
+        console.error(err.message);
+    }
+});
+
+// Criar a tabela Marca
+db.run(`
+    CREATE TABLE IF NOT EXISTS Marca (
+        id_marca INTEGER PRIMARY KEY AUTOINCREMENT,
+        nm_marca TEXT NOT NULL
     )
 `, (err) => {
     if (err) {
@@ -48,18 +59,20 @@ db.run(`
     }
 });
 
-// Criar a tabela Estoque
+// Criar a tabela Entrada
 db.run(`
-    CREATE TABLE IF NOT EXISTS Estoque (
-        id_estoque INTEGER PRIMARY KEY AUTOINCREMENT,
+    CREATE TABLE IF NOT EXISTS Entrada (
+        id_entrada INTEGER PRIMARY KEY AUTOINCREMENT,
         id_produto INTEGER NOT NULL,
         id_fornecedor INTEGER NOT NULL,
+        id_marca INTEGER NOT NULL,
         qtd_produto INTEGER NOT NULL,
         vl_compra REAL NOT NULL,
         dt_entrada DATETIME NOT NULL,
         dt_validade DATETIME NOT NULL,
         FOREIGN KEY (id_produto) REFERENCES Produto(id_produto),
-        FOREIGN KEY (id_fornecedor) REFERENCES Fornecedor(id_fornecedor)
+        FOREIGN KEY (id_fornecedor) REFERENCES Fornecedor(id_fornecedor),
+        FOREIGN KEY (id_marca) REFERENCES Marca(id_marca)
     )
 `, (err) => {
     if (err) {
