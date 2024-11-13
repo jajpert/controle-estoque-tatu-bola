@@ -3,6 +3,9 @@ const { cadastrarProduto, listarProdutos, excluirProduto, detalharProduto, edita
 const { cadastrarFornecedor, listarFornecedores, excluirFornecedor, detalharFornecedor, editarFornecedor } = require('./controller/fornecedor');
 const { cadastrarMarca, listarMarcas, excluirMarca, detalharMarca, editarMarca } = require('./controller/marca');
 const { cadastrarMtvSaida, listarMtvSaida, excluirMtvSaida, detalharMtvSaida, editarMtvSaida } = require('./controller/mtv_saida');
+const { cadastrarEntrada, listarEntradas, detalharEntrada } = require('./controller/entrada');
+const { cadastrarSaida, listarSaidas, detalharSaida } = require('./controller/saida');
+const { listarEstoque } = require('./controller/estoque');
 
 const routes = express();
 
@@ -37,6 +40,19 @@ routes.get("/mtv_saida/:id_mtv_saida", detalharMtvSaida);
 routes.post("/mtv_saida", cadastrarMtvSaida);
 routes.delete("/mtv_saida/:id_mtv_saida", excluirMtvSaida);
 routes.put("/mtv_saida/:id_mtv_saida", editarMtvSaida);
+
+// entradas
+routes.get("/entrada", listarEntradas);
+routes.get("/entrada/:id_entrada", detalharEntrada);
+routes.post("/entrada", cadastrarEntrada);
+
+// saidas
+routes.get("/saida", listarSaidas);
+routes.get("/saida/:id_saida", detalharSaida);
+routes.post("/saida", cadastrarSaida);
+
+// estoque
+routes.get("/estoque", listarEstoque);
 
 
 module.exports = routes;
