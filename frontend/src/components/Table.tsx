@@ -1,13 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import {
-  CaretDown,
-  CaretLeft,
-  CaretRight,
-  CaretUp,
-  CaretUpDown,
-  DotOutline,
-} from "@phosphor-icons/react";
+import { CaretDown, CaretLeft, CaretRight, CaretUp, CaretUpDown, DotOutline } from "@phosphor-icons/react";
 import {
   ColumnDef,
   flexRender,
@@ -26,6 +19,7 @@ interface TableProps<T> {
   defaultSortingColumn: string;
   pageSize: number;
   fillRows?: boolean;
+  emptyMessage: string;
 }
 
 function Table<T>({
@@ -34,6 +28,7 @@ function Table<T>({
   onRowClick,
   defaultSortingColumn,
   pageSize,
+  emptyMessage,
   fillRows = false,
 }: TableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([
@@ -86,28 +81,20 @@ function Table<T>({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="overflow-hidden rounded-md border border-neutral-800">
+      <div className="overflow-x-auto rounded-md border border-neutral-800 bg-neutral-950">
         <table className="w-full text-xs">
-          <thead className="text-left text-white">
+          <thead className="bg-background text-left text-white">
             {table.getHeaderGroups().map((headerGroup, hgIndex) => (
               <tr key={hgIndex} className="border-b border-neutral-800">
                 {headerGroup.headers.map((header, hIndex) => (
-                  <th
-                    key={hIndex}
-                    className="whitespace-nowrap p-3 font-normal"
-                  >
+                  <th key={hIndex} className="whitespace-nowrap p-3 font-normal">
                     <div
                       {...{
-                        className: header.column.getCanSort()
-                          ? "flex items-center gap-2"
-                          : "",
+                        className: header.column.getCanSort() ? "flex items-center gap-2" : "",
                         onClick: header.column.getToggleSortingHandler(),
                       }}
                     >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                      {flexRender(header.column.columnDef.header, header.getContext())}
                       <span className="text-neutral-500">
                         {header.column.getIsSorted() ? (
                           header.column.getIsSorted() === "desc" ? (
@@ -116,11 +103,7 @@ function Table<T>({
                             <CaretUp size={14} weight="fill" />
                           )
                         ) : (
-                          <CaretUpDown
-                            size={14}
-                            weight="fill"
-                            className="invisible"
-                          />
+                          <CaretUpDown size={14} weight="fill" className="invisible" />
                         )}
                       </span>
                     </div>
@@ -129,16 +112,11 @@ function Table<T>({
               </tr>
             ))}
           </thead>
-          <tbody className="bg-neutral-950 text-neutral-400">
+          <tbody className="text-neutral-400">
             {data.length === 0 && (
               <tr>
-                <td
-                  colSpan={columns.length}
-                  style={{ height: `${rowHeight * pageSize}px` }}
-                >
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    Desculpe, nenhum produto encontrado!
-                  </div>
+                <td colSpan={columns.length} style={{ height: `${rowHeight * pageSize}px` }}>
+                  <div className="flex flex-col items-center justify-center gap-4">{emptyMessage}</div>
                 </td>
               </tr>
             )}
@@ -159,17 +137,11 @@ function Table<T>({
             {fillRows &&
               data.length !== 0 &&
               table.getRowModel().rows.length < pageSize &&
-              Array.from(
-                { length: pageSize - table.getRowModel().rows.length },
-                (_, index) => (
-                  <tr key={index}>
-                    <td
-                      colSpan={columns.length}
-                      style={{ height: `${rowHeight}px` }}
-                    ></td>
-                  </tr>
-                ),
-              )}
+              Array.from({ length: pageSize - table.getRowModel().rows.length }, (_, index) => (
+                <tr key={index}>
+                  <td colSpan={columns.length} style={{ height: `${rowHeight}px` }}></td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
