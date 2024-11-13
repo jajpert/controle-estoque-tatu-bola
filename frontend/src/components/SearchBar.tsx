@@ -7,10 +7,10 @@ interface SearchBarProps {
 
 function SearchBar({ placeholder, onSearch }: SearchBarProps) {
   return (
-    <div className="relative flex rounded-md border border-neutral-800 text-xs focus-within:border-neutral-700">
+    <div className="relative flex rounded-md border border-neutral-800 text-xs">
       <input
         type="text"
-        className="w-96 bg-transparent py-1 pl-2 pr-7 text-white outline-none placeholder:text-neutral-500"
+        className="w-96 bg-transparent py-1 pl-2 pr-7 text-neutral-400 outline-none placeholder:text-neutral-500"
         placeholder={placeholder}
         onChange={(e) => onSearch(e.target.value)}
       />
