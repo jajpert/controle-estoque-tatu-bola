@@ -59,6 +59,22 @@ db.run(`
     }
 });
 
+// Criar a tabela Estoque
+db.run(`
+    CREATE TABLE IF NOT EXISTS Estoque (
+        id_estoque INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_produto INTEGER NOT NULL,
+        qtd_estoque INTEGER NOT NULL,
+        dt_ultima_atualizacao DATETIME,
+        FOREIGN KEY (id_produto) REFERENCES Produto(id_produto)
+    )
+`, (err) => {
+    if (err) {
+        console.error(err.message);
+    }
+});
+
+
 // Criar a tabela Entrada
 db.run(`
     CREATE TABLE IF NOT EXISTS Entrada (
