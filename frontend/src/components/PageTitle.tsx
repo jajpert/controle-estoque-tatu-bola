@@ -19,11 +19,9 @@ function PageTitle({ icon: Icon, title, description, style }: PageTitleProps) {
       >
         <Icon size={16} weight="bold" />
       </div>
-      <div className="flex flex-col justify-center gap-1">
-        <h1 className="font-semibold leading-4">{title}</h1>
-        <span className="text-xs leading-3 text-neutral-400">
-          {description}
-        </span>
+      <div className="flex flex-col justify-center gap-0.5">
+        <h1 className="font-semibold uppercase leading-4">{title}</h1>
+        <span className="text-xs leading-3 text-neutral-400">{description}</span>
       </div>
     </div>
   );

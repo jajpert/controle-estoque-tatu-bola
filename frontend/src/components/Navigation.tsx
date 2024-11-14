@@ -21,7 +21,7 @@ const buttons: NavigationButtonProps[] = [
     icon: Plus,
     label: "Registrar\nEntrada",
     style: "text-green-500 bg-green-950 border-green-500",
-    href: "/registrar-entrada",
+    href: "/add-stock",
   },
   {
     icon: X,
@@ -38,23 +38,13 @@ interface NavigationButtonProps {
   href: string;
 }
 
-function NavigationButton({
-  icon: Icon,
-  label,
-  style,
-  href,
-}: NavigationButtonProps) {
+function NavigationButton({ icon: Icon, label, style, href }: NavigationButtonProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
-    <button onClick={() => navigate(href)} className="flex items-center gap-2">
-      <div
-        className={twMerge(
-          "relative flex h-8 w-8 items-center justify-center rounded-md border-2",
-          style,
-        )}
-      >
+    <button onClick={() => navigate(href)} className="flex items-center gap-2 outline-none">
+      <div className={twMerge("relative flex h-8 w-8 items-center justify-center rounded-md border-2", style)}>
         <Icon size={16} weight="bold" />
         <span
           className={`absolute -bottom-3 h-1 w-1 rounded-full transition-colors ${
@@ -62,9 +52,7 @@ function NavigationButton({
           }`}
         />
       </div>
-      <span className="whitespace-pre-line text-left font-medium leading-tight">
-        {label}
-      </span>
+      <span className="whitespace-pre-line text-left font-medium leading-tight">{label}</span>
     </button>
   );
 }
