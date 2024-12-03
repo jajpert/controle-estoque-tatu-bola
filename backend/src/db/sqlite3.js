@@ -117,7 +117,7 @@ db.run(`
     }
 });
 
-// Fechar a conexão com o banco de dados
+
 db.close((err) => {
     if (err) {
         console.error(err.message);

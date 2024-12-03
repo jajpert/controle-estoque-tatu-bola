@@ -5,7 +5,7 @@ const { cadastrarMarca, listarMarcas, excluirMarca, detalharMarca, editarMarca }
 const { cadastrarMtvSaida, listarMtvSaida, excluirMtvSaida, detalharMtvSaida, editarMtvSaida } = require('./controller/mtv_saida');
 const { cadastrarEntrada, listarEntradas, detalharEntrada } = require('./controller/entrada');
 const { cadastrarSaida, listarSaidas, detalharSaida } = require('./controller/saida');
-const { listarEstoque } = require('./controller/estoque');
+const { buscarEstoque } = require('./controller/estoque');
 
 const routes = express();
 
@@ -52,7 +52,7 @@ routes.get("/saida/:id_saida", detalharSaida);
 routes.post("/saida", cadastrarSaida);
 
 // estoque
-routes.get("/estoque", listarEstoque);
+routes.get("/estoque", buscarEstoque);
 
 
 module.exports = routes;
