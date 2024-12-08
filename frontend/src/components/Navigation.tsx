@@ -15,7 +15,7 @@ const buttons: NavigationButtonProps[] = [
     icon: WarningCircle,
     label: "Lista de\nOcorrências",
     style: "text-yellow-500 bg-yellow-950 border-yellow-500",
-    href: "/ocorrencias",
+    href: "/stock-activity",
   },
   {
     icon: Plus,
@@ -27,7 +27,7 @@ const buttons: NavigationButtonProps[] = [
     icon: X,
     label: "Registrar\nSaída",
     style: "text-red-500 bg-red-950 border-red-500",
-    href: "/registrar-saida",
+    href: "/remove-stock",
   },
 ];
 
