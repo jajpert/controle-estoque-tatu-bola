@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import { CaretDown, CaretLeft, CaretRight, CaretUp, CaretUpDown, DotOutline } from "@phosphor-icons/react";
 import {
@@ -41,12 +41,12 @@ function Table<T>({
   const rowRef = useRef<HTMLTableRowElement>(null);
   const [rowHeight, setRowHeight] = useState<number>(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (rowRef.current) {
-      const height = rowRef.current.getBoundingClientRect().height;
+      const { height } = rowRef.current.getBoundingClientRect();
       setRowHeight(height);
     }
-  });
+  }, []);
 
   function handleSorting(updater: Updater<SortingState>) {
     return setSorting((prev) => {

@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
-import { ArrowBendUpRight, ArrowUpRight, Package, PlusCircle } from "@phosphor-icons/react";
+import { ArrowBendUpRight, ArrowUpRight, Check, Package, PlusCircle } from "@phosphor-icons/react";
 import { ColumnDef } from "@tanstack/react-table";
 
 import StockStatus, { Status } from "./StockStatus";
@@ -179,7 +179,10 @@ const instancesColumns: ColumnDef<ProductInstance>[] = [
 function Products() {
   const [search, setSearch] = useState<string>("");
   const [isProductModalOpen, setProductModalOpen] = useState(false);
+  const [isProductCreationModalOpen, setProductCreationModalOpen] = useState(false);
   const [product, setProduct] = useState<Product>();
+
+  const productNameRef = useRef<HTMLInputElement>(null);
 
   const data = useMemo(() => products, []);
   const cols = useMemo(() => columns, []);
@@ -208,7 +211,10 @@ function Products() {
           style="border-sky-500 bg-sky-950 text-sky-500"
         />
         <div className="flex justify-between gap-4 lg:justify-normal">
-          <button className="flex items-center gap-2 rounded-md border border-neutral-800 px-2 py-1 text-neutral-400 outline-none">
+          <button
+            onClick={() => setProductCreationModalOpen(true)}
+            className="flex items-center gap-2 rounded-md border border-neutral-800 px-2 py-1 text-neutral-400 outline-none"
+          >
             <PlusCircle size={16} weight="bold" className="text-sky-500" />
             Novo produto
           </button>
@@ -274,6 +280,50 @@ function Products() {
             </div>
           </>
         )}
+      </Modal>
+
+      {/* Product Creation Modal */}
+      <Modal isOpen={isProductCreationModalOpen} onClose={() => setProductCreationModalOpen(false)}>
+        <PageTitle
+          icon={Package}
+          title="Novo produto"
+          description="Crie um novo produto"
+          style="border-sky-500 bg-sky-950 text-sky-500"
+        />
+        <form onSubmit={() => {}} className="grid grid-cols-9 gap-4 text-neutral-300">
+          <label className="col-span-6 flex flex-col gap-0.5">
+            Nome do produto
+            <input
+              type="text"
+              ref={productNameRef}
+              className="flex h-[30px] items-center justify-between overflow-hidden rounded-md border border-neutral-800 bg-transparent px-2 py-1 outline-none"
+            />
+          </label>
+          <label className="col-span-3 flex flex-col gap-0.5">
+            Marca
+            <input
+              type="text"
+              ref={productNameRef}
+              className="flex h-[30px] items-center justify-between overflow-hidden rounded-md border border-neutral-800 bg-transparent px-2 py-1 outline-none"
+            />
+          </label>
+          <div className="col-span-full flex justify-end gap-4">
+            <button
+              type="button"
+              onClick={() => setProductCreationModalOpen(false)}
+              className="px-2 py-1 text-neutral-500 outline-none"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              className="flex h-[30px] items-center gap-2 rounded-md border border-neutral-800 px-2 py-1 text-neutral-400 outline-none"
+            >
+              <Check size={16} weight="bold" className="text-green-500" />
+              Criar produto
+            </button>
+          </div>
+        </form>
       </Modal>
     </div>
   );
