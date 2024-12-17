@@ -164,7 +164,7 @@ function RemoveStock() {
             onRowClick={() => {}}
             defaultSortingColumn="expirationDate"
             pageSize={10}
-            emptyMessage="Você ainda não adicionou nenhuma entrada!"
+            emptyMessage="Você ainda não adicionou nenhuma saída!"
             fillRows
           />
         </div>
@@ -175,7 +175,7 @@ function RemoveStock() {
             className="flex h-[32px] items-center gap-2 rounded-md border border-neutral-800 px-2 py-1 text-neutral-400 outline-none"
           >
             <FloppyDisk size={16} weight="bold" className="text-green-500" />
-            Registrar entrada
+            Registrar saída
           </button>
         </div>
       </form>

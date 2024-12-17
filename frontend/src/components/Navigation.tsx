@@ -62,7 +62,7 @@ function Navigation() {
     <header className="p-5 text-xs text-white">
       <div className="flex flex-row items-center justify-between gap-8">
         <div className="flex h-14 shrink-0 items-center">
-          <img src={Logo} alt="" className="h-full" />
+          <img src={Logo} alt="" draggable={false} className="h-full" />
         </div>
         <div className="grid shrink-0 grid-cols-4 gap-8">
           {buttons.map((button, index) => (
