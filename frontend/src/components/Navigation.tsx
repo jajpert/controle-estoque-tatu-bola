@@ -15,7 +15,7 @@ const buttons: NavigationButtonProps[] = [
     icon: WarningCircle,
     label: "Lista de\nOcorrências",
     style: "text-yellow-500 bg-yellow-950 border-yellow-500",
-    href: "/ocorrencias",
+    href: "/stock-activity",
   },
   {
     icon: Plus,
@@ -27,7 +27,7 @@ const buttons: NavigationButtonProps[] = [
     icon: X,
     label: "Registrar\nSaída",
     style: "text-red-500 bg-red-950 border-red-500",
-    href: "/registrar-saida",
+    href: "/remove-stock",
   },
 ];
 
@@ -62,7 +62,7 @@ function Navigation() {
     <header className="p-5 text-xs text-white">
       <div className="flex flex-row items-center justify-between gap-8">
         <div className="flex h-14 shrink-0 items-center">
-          <img src={Logo} alt="" className="h-full" />
+          <img src={Logo} alt="" draggable={false} className="h-full" />
         </div>
         <div className="grid shrink-0 grid-cols-4 gap-8">
           {buttons.map((button, index) => (

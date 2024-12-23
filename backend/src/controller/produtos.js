@@ -1,5 +1,7 @@
 const db = require("../db/db");
 
+const db = require("../db/db");
+
 const cadastrarProduto = (req, res) => {
     const { nm_produto } = req.body;
 
@@ -123,7 +125,7 @@ const excluirProduto = (req, res) => {
 const detalharProduto = (req, res) => {
     const { id_produto } = req.params;
 
-    db.get("SELECT nm_produto, unid_medida FROM Produto WHERE id_produto = ?", [id_produto], (err, produto) => {
+    db.get("SELECT nm_produto FROM Produto WHERE id_produto = ?", [id_produto], (err, produto) => {
         if (err) {
             console.error("Erro ao detalhar o produto:", err.message);
             return res.status(500).json({ mensagem: "Erro interno do servidor" });
