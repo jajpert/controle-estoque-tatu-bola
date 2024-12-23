@@ -1,5 +1,7 @@
 const db = require("../db/db");
 
+const db = require("../db/db");
+
 const cadastrarProduto = (req, res) => {
     const { nm_produto } = req.body;
 
